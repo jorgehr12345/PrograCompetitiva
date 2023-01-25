@@ -27,7 +27,11 @@ void sparseTableIndex1(vector<ll> &sparse) {
     }
     for (ll i = 1; i <= logarit; i++) {
         for (ll j = 1; j <= n; j++) {
-            valores[j][i] = operacion(valores[j][i - 1], valores[j + (1 << i - 1)][i - 1]);
+            if (j + (1 << i - 1) <= 1e6) { // VALOR MAXIMO DE LA CANTIDAD DE ELEMENTOS
+                valores[j][i] = operacion(valores[j][i - 1], valores[j + (1 << i - 1)][i - 1]);
+            } else {
+                valores[j][i] = valores[j][i - 1];
+            }
         }
     }
 }
