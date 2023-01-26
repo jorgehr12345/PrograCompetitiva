@@ -82,10 +82,10 @@ int main() {
     cout << interpolate(6, X, Y) << endl;
     return 0;
 }
-
-// 5
-// 1 3
-// 2 5
-// 3 9
-// 4 14
-// 5 16
+// PONER MAS VALORES DE LOS NECESARIOS (UNOS 3 MÁS)
+//  5
+//  1 3
+//  2 5
+//  3 9
+//  4 14
+//  5 16
