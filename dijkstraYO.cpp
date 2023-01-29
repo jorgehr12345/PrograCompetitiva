@@ -9,7 +9,7 @@ const ll MX = 1e5 + 2;
 const ll INF = 1e9 + 2;
 
 vector<pair<ll, ll>> adj[MX];
-map<pair<ll, ll>, ll> mapa;
+// map<pair<ll, ll>, ll> mapa;
 set<pair<ll, ll>> sepa;
 ll valores[MX];
 void dijkstra(ll root) {

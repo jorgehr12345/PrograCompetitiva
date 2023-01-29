@@ -21,7 +21,7 @@ ll rest_mod(ll a, ll b, ll c) {
     return ((a % c) - (b % c) + c) % c;
 }
 ll sum_mod(ll a, ll b, ll c) {
-    return (a % c + b % c) % c;
+    return ((a % c) + (b % c)) % c;
 }
 ll pot_mod(ll a, ll b, ll c) {
     if (b == 0) {
