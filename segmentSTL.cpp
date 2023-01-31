@@ -18,6 +18,7 @@ const long double INF_DOUBLE = 1e18 / 1.0;
 const long double EPS = 1e-8;
 const long double PI = acos(-1.0);
 
+// Cantidad de valores mayores o iguales a x en un arreglo desordenado
 ll combine(ll x, ll y) {
     // return max(x, y);
     return x + y;
@@ -106,6 +107,21 @@ int main() {
 
     ll n, m;
     cin >> n >> m;
-
+    vector<ll> vec;
+    Rep1(i, n) {
+        ll l;
+        cin >> l;
+        vec.pb(l);
+    }
+    st.build(vec);
+    while (m--) {
+        ll l, r, x;
+        cin >> l >> r >> x;
+        cout << st.query(l, r, x) << " asdasdas " << endl;
+    }
     return 0;
 }
+
+// 6 1
+// 20 30 30 10 40 30
+// 1 6 30
