@@ -30,12 +30,19 @@ bool verificarPrendido(ll num, ll pos) {
 int main() {
     inic;
     inic2;
-    for (ll i = 0; i < (1 << 5); i++) {
-        for (ll j = 0; j < 5; j++) {
-            if (verificarPrendido(i, j) == true) {
-                cout << i << " qwe " << j << endl;
-            }
+    ll n;
+    cin >> n;
+    for (ll i = 0; i <= 20; i++) {
+        if (verificarPrendido(n, i)) {
+            cout << pow(2, i) << " asd " << endl;
         }
     }
+    // for (ll i = 0; i < (1 << 5); i++) {
+    //     for (ll j = 0; j < 5; j++) {
+    //         if (verificarPrendido(i, j) == true) {
+    //             cout << i << " qwe " << j << endl;
+    //         }
+    //     }
+    // }
     return 0;
 }
