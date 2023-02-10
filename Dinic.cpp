@@ -31,9 +31,9 @@ struct dinic {
             return flujoTotal;
         }
         for (ll i = nextEdge[ini]; i < adj[ini].size(); i++) {
-            nextEdge[ini]++;
             ll disponible = adj[ini][i].capacidad - adj[ini][i].flujo;
             if (disponible == 0 || nivel[adj[ini][i].valor] != nivel[ini] + 1) {
+                nextEdge[ini]++;
                 continue;
             }
             ll flujoMin = dfs(adj[ini][i].valor, sumidero, min(flujoTotal, disponible));
@@ -46,6 +46,7 @@ struct dinic {
                 adj[adj[ini][i].valor][adj[ini][i].posAncestro].flujo -= flujoMin;
                 return flujoMin;
             }
+            nextEdge[ini]++;
         }
         return 0;
     }
