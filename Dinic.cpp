@@ -24,11 +24,15 @@ struct edge {
         : valor(valor), flujo(0), capacidad(capacidad), posAncestro(posAncestro) {}
 };
 
-ll nivel[MX], nextEdge[MX];
+ll nivel[MX], nextEdge[MX], padre[MX];
 vector<edge> adj[MX];
+vector<ll> resp[MX], resp2[MX];
 
 struct dinic {
-    ll dfs(ll ini, ll sumidero, ll flujoTotal) {
+    ll dfs(ll ini, ll sumidero, ll flujoTotal, ll pap) {
+        // // VER AUGMENTING
+        // padre[ini] = pap;
+        // // FIN VER AUGMENTING
         if (ini == sumidero) {
             return flujoTotal;
         }
@@ -38,13 +42,9 @@ struct dinic {
                 nextEdge[ini]++;
                 continue;
             }
-            ll flujoMin = dfs(adj[ini][i].valor, sumidero, min(flujoTotal, disponible));
-            // cout << "Valor nodo: " << ini << " Valor destino: " << adj[ini][i].valor << " ";
-            // cout << "Flujo minimo: " << flujoMin << endl;
+            ll flujoMin = dfs(adj[ini][i].valor, sumidero, min(flujoTotal, disponible), ini);
             if (flujoMin > 0) {
                 adj[ini][i].flujo += flujoMin;
-                // cout << "Resto flujo: " << adj[ini][i].valor << " asdasd "
-                //      << adj[adj[ini][i].valor][adj[ini][i].posAncestro].valor << endl;
                 adj[adj[ini][i].valor][adj[ini][i].posAncestro].flujo -= flujoMin;
                 return flujoMin;
             }
@@ -79,16 +79,46 @@ struct dinic {
     ll maxFlow(ll s, ll t, ll n) {
         ll ans = 0;
         while (bfs(s, t, n)) {
-            // for (ll i = 1; i <= n; i++) {
-            //     cout << "Nivel i: " << nivel[i] << endl;
-            // }
-            while (ll inc = dfs(s, t, INF)) {
+            while (ll inc = dfs(s, t, INF, -1)) {
                 ans += inc;
+                // // VER AUGMENTING
+                // ll parcial = n;
+                // resp[ans].pb(parcial);
+                // // cout << "Rp: " << ans << " Parcial: " << parcial << endl;
+                // while (padre[parcial] != n - 1) {
+                //     parcial = padre[parcial];
+                //     resp[ans].pb(parcial);
+                //     // cout << "Rp: " << ans << " Parcial: " << parcial << endl;
+                // }
+                // resp[ans].pb(n - 1);
+                // // cout << "Rp: " << ans << " Parcial: " << 1 << endl;
+                // // FIN VER AUGMENTING
             }
         }
         return ans;
     }
 };
+
+bool pp = false;
+ll tot = 1;
+void respuesta(ll ini, ll n) {
+    resp[tot].pb(ini);
+    if (ini == n) {
+        pp = true;
+        tot++;
+        return;
+    } else {
+        for (ll i = 0; i < adj[ini].size(); i++) {
+            if ((adj[ini][i].flujo == 1 && pp == false)) {
+                adj[ini][i].flujo = 0;
+                respuesta(adj[ini][i].valor, n);
+            }
+        }
+        if (pp == false) {
+            resp[tot].pop_back();
+        }
+    }
+}
 
 void addEdge(ll origen, ll destino, ll capacidad, bool unidireccional = false) {
     adj[origen].pb({destino, capacidad, adj[destino].size()});
@@ -102,6 +132,8 @@ void clear(int n) {
 }
 
 int main() {
+    inic;
+    inic2;
     ll n, m;
     cin >> n >> m;
     Rep1(i, m) {
@@ -110,6 +142,17 @@ int main() {
         addEdge(a, b, w);
     }
     dinic nuevo;
-    cout << nuevo.maxFlow(1, n, n) << endl;
+    ll rp = nuevo.maxFlow(1, n, n);
+    cout << rp << endl;
+    // VER AUGMENTING
+    // for (ll i = 1; i <= rp; i++) {
+    //     cout << resp[i].size() << endl;
+    //     for (ll j = resp[i].size() - 1; j >= 0; j--) {
+    //         cout << resp[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // FIN VER AUGMENTING
+
     return 0;
 }
