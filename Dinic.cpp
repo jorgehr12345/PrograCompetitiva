@@ -20,6 +20,8 @@ const long double PI = acos(-1.0);
 
 struct edge {
     ll valor = 0, flujo = 0, capacidad = 0, posAncestro = 0;
+    edge(ll valor, ll capacidad, ll posAncestro)
+        : valor(valor), flujo(0), capacidad(capacidad), posAncestro(posAncestro) {}
 };
 
 ll nivel[MX], nextEdge[MX];
@@ -89,8 +91,8 @@ struct dinic {
 };
 
 void addEdge(ll origen, ll destino, ll capacidad, bool unidireccional = false) {
-    adj[origen].pb({destino, 0, capacidad, adj[destino].size()});
-    adj[destino].pb({origen, 0, capacidad * !bool(unidireccional), adj[origen].size() - 1});
+    adj[origen].pb({destino, capacidad, adj[destino].size()});
+    adj[destino].pb({origen, capacidad * !bool(unidireccional), adj[origen].size() - 1});
 }
 
 void clear(int n) {
