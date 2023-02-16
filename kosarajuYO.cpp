@@ -9,8 +9,8 @@ typedef long long ll;
 #define Rep1(i, n) for (ll i = 1; i <= (ll)n; i++)
 const ll MX = 2e5 + 2;
 
-ll orden[MX];
-vector<ll> adj[MX], adj2[MX];
+ll orden[MX], entrante[MX], saliente[MX], contComp = 0;
+vector<ll> adj[MX], adj2[MX], adjCond[MX];
 bool val[MX], val2[MX];
 stack<ll> st;
 void dfs1(ll ini) {
@@ -38,15 +38,27 @@ void kosaraju(ll nodos) {
             dfs1(i);
         }
     }
-    ll cont = 1;
     while (!st.empty()) {
         ll valor = st.top();
         if (val2[valor] == true) {
             st.pop();
         } else {
-            dfs2(valor, cont);
-            cont++;
+            contComp++;
+            dfs2(valor, contComp);
             st.pop();
+        }
+    }
+    set<pair<ll, ll>> aristas;
+    for (ll i = 1; i <= nodos; i++) {
+        for (ll j = 0; j < adj[i].size(); j++) {
+            if (orden[i] != orden[adj[i][j]]) {
+                if (aristas.find({orden[i], orden[adj[i][j]]}) == aristas.end()) {
+                    aristas.insert({orden[i], orden[adj[i][j]]});
+                    adjCond[orden[i]].pb(orden[adj[i][j]]);
+                    saliente[orden[i]]++;
+                    entrante[orden[adj[i][j]]]++;
+                }
+            }
         }
     }
 }
