@@ -17,6 +17,8 @@ const ll INF = 1e18;
 const long double INF_DOUBLE = 1e18 / 1.0;
 const long double EPS = 1e-8;
 const long double PI = acos(-1.0);
+typedef long double ld;
+typedef unsigned long long ull;
 
 string s, p;
 ll cont = 0;

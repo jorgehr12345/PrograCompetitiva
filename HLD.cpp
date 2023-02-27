@@ -212,8 +212,8 @@ struct Graph {
             v = parent[head[v]];
         }
         if (depth[u] > depth[v]) swap(u, v);
-        u = heavy[u];          // when weight are on edges
-        if (u == -1) return 0; // when weight are on edges
+        // u = heavy[u];          // when weight are on edges
+        // if (u == -1) return 0; // when weight are on edges
 
         // last heavy path
         ll lastVal = st.query(pos[u], pos[v]);
