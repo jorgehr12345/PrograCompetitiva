@@ -50,6 +50,21 @@ vector<ll> kmp() {
     return ans;
 }
 
+bool esta(string p, string s) { // Esta p dentro de s
+    string w = p + '#' + s;
+    vector<ll> border_func = prefix_function(w);
+    vector<ll> ans;
+    for (ll i = 0; i < border_func.size(); i++) {
+        if (border_func[i] == p.size()) {
+            ans.pb(i - 2 * p.size() + 1);
+        }
+    }
+    if (ans.size() > 0) {
+        return true;
+    }
+    return false;
+}
+
 int main() {
     inic;
     inic2;

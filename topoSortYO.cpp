@@ -23,7 +23,6 @@ void dfsTopo(ll ini) {
     ordenTopo[ini] = ordenActual;
     ordenActual--;
 }
-
 void topoSort(ll n) {
     ordenActual = n;
     for (ll i = 1; i <= n; i++) {
@@ -32,12 +31,10 @@ void topoSort(ll n) {
         }
     }
 }
-
 int main() {
     inic;
     inic2;
     inic3;
-
     ll n, m;
     cin >> n >> m;
     ordenActual = n;
@@ -50,6 +47,5 @@ int main() {
     for (ll i = 1; i <= n; i++) {
         cout << i << " orden: " << ordenTopo[i] << endl;
     }
-
     return 0;
 }

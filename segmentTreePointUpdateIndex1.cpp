@@ -26,7 +26,8 @@ map<pair<ll, ll>, pair<ll, ll>> mapapa, mapapa2, mapapa3;
 map<ll, pair<ll, ll>> malpa, malpa2, malpa3;
 map<ll, pair<pair<ll, ll>, ll>> malpapa, malpapa2, malpapa3;
 ll combine(ll x, ll y) {
-    return max(x, y);
+    // return max(x, y);
+    return x + y;
 }
 
 struct SegmentTree {
@@ -76,7 +77,7 @@ struct SegmentTree {
 
     void update(ll pos, ll val, ll id, ll tl, ll tr) { // O(logn)
         if (tl == tr) {
-            t[id] = val;
+            t[id] += val;
         } else {
             ll tm = (tl + tr) / 2;
             ll left = id + 1;
