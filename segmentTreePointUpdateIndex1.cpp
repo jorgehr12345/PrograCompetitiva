@@ -7,25 +7,14 @@ using namespace std;
 typedef long long ll;
 #define Rep0(i, n) for (ll i = 0; i < (ll)n; i++)
 #define Rep1(i, n) for (ll i = 1; i <= (ll)n; i++)
-const ll MX = 2e5 + 10, MX2 = 1e9 + 2;
-bool bo[MX];
-pair<ll, ll> pa;
-deque<ll> deq, deq2, deq3;
-deque<pair<ll, ll>> dpa, dpa2, dpa3;
-deque<pair<pair<ll, ll>, ll>> dpapa, dpapa2, dpapa3;
-vector<ll> vec, vec2, vec3;
-vector<ll> vec4, vec5, vec6;
-vector<pair<ll, ll>> vpa, vpa2, vpa3, vpas[MX];
-vector<pair<pair<ll, ll>, ll>> vpapa, vpapa2, vpapa3;
-set<ll> se, se2, se3, se4;
-set<pair<ll, ll>> sepa, sepa2, sepa3;
-set<pair<pair<ll, ll>, ll>> sepapa, sepapa2, sepapa3;
-map<ll, ll> ma, ma2, ma3, ma4;
-map<pair<ll, ll>, ll> mapa, mapa2, mapa3;
-map<pair<ll, ll>, pair<ll, ll>> mapapa, mapapa2, mapapa3;
-map<ll, pair<ll, ll>> malpa, malpa2, malpa3;
-map<ll, pair<pair<ll, ll>, ll>> malpapa, malpapa2, malpapa3;
-ll combine(ll x, ll y) {
+#define POT(x) ((x) * (x))
+const ll MX2 = 2e3 + 2, MX = 2e5 + 7;
+const ll MOD = 1e9 + 7;
+const ll INF = 1e18;
+const double INF_DOUBLE = 1e18 / 1.0;
+const double EPS = 1e-8;
+const double PI = acos(-1.0);
+ll operador(ll x, ll y) {
     // return max(x, y);
     return x + y;
 }
@@ -50,7 +39,7 @@ struct SegmentTree {
             ll right = id + 2 * (tm - tl + 1);
             build(a, left, tl, tm);
             build(a, right, tm + 1, tr);
-            t[id] = combine(t[left], t[right]);
+            t[id] = operador(t[left], t[right]);
         }
     }
 
@@ -67,7 +56,7 @@ struct SegmentTree {
         ll right = id + 2 * (tm - tl + 1);
         if (r < tm + 1) return query(l, r, left, tl, tm);
         else if (tm < l) return query(l, r, right, tm + 1, tr);
-        else return combine(query(l, r, left, tl, tm), query(l, r, right, tm + 1, tr));
+        else return operador(query(l, r, left, tl, tm), query(l, r, right, tm + 1, tr));
     }
 
     ll query(ll l, ll r) {
@@ -84,7 +73,7 @@ struct SegmentTree {
             ll right = id + 2 * (tm - tl + 1);
             if (pos <= tm) update(pos, val, left, tl, tm);
             else update(pos, val, right, tm + 1, tr);
-            t[id] = combine(t[left], t[right]);
+            t[id] = operador(t[left], t[right]);
         }
     }
 

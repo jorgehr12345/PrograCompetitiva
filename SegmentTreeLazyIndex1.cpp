@@ -15,8 +15,7 @@ const double INF_DOUBLE = 1e18 / 1.0;
 const double EPS = 1e-8;
 const double PI = acos(-1.0);
 
-vector<ll> guardar;
-ll combine(ll a, ll b) {
+ll operador(ll a, ll b) {
     return a + b;
 }
 
@@ -43,7 +42,7 @@ struct SegmentTree {
             ll right = id + 2 * (tm - tl + 1);
             build(a, left, tl, tm);
             build(a, right, tm + 1, tr);
-            t[id] = combine(t[left], t[right]);
+            t[id] = operador(t[left], t[right]);
         }
     }
 
@@ -59,8 +58,8 @@ struct SegmentTree {
         ll szLeft = tm - tl + 1;
         ll szRight = tr - tm;
         // Apply the lazy value of the node to the children
-        t[left] += lazy[id] * pow(szLeft, bool(combine(1, 1) - 1));
-        t[right] += lazy[id] * pow(szRight, bool(combine(1, 1) - 1));
+        t[left] += lazy[id] * pow(szLeft, bool(operador(1, 1) - 1));
+        t[right] += lazy[id] * pow(szRight, bool(operador(1, 1) - 1));
 
         // Aggregate the lazy value
         lazy[left] += lazy[id];
@@ -78,7 +77,7 @@ struct SegmentTree {
         push(id, tl, tr);
         if (r < tm + 1) return query(l, r, left, tl, tm);
         else if (tm < l) return query(l, r, right, tm + 1, tr);
-        else return combine(query(l, r, left, tl, tm), query(l, r, right, tm + 1, tr));
+        else return operador(query(l, r, left, tl, tm), query(l, r, right, tm + 1, tr));
     }
 
     ll query(ll l, ll r) {
@@ -91,7 +90,7 @@ struct SegmentTree {
         if (l <= tl && tr <= r) {
             ll sz = tr - tl + 1;
             // Apply the lazy value
-            t[id] += val * pow(sz, (bool(combine(1, 1) - 1)));
+            t[id] += val * pow(sz, (bool(operador(1, 1) - 1)));
             // Aggregate the lazy value
             lazy[id] += val;
         } else {
@@ -101,7 +100,7 @@ struct SegmentTree {
             push(id, tl, tr);
             update(l, r, val, left, tl, tm);
             update(l, r, val, right, tm + 1, tr);
-            t[id] = combine(t[left], t[right]);
+            t[id] = operador(t[left], t[right]);
         }
     }
 
@@ -111,6 +110,7 @@ struct SegmentTree {
     }
 } st;
 
+vector<ll> guardar;
 int main() {
     inic;
     inic2;

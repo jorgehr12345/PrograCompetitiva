@@ -19,7 +19,7 @@ const long double EPS = 1e-8;
 const long double PI = acos(-1.0);
 
 // Cantidad de valores mayores o iguales a x en un arreglo desordenado
-ll combine(ll x, ll y) {
+ll operador(ll x, ll y) {
     // return max(x, y);
     return x + y;
 }
@@ -45,7 +45,7 @@ struct SegmentTree {
             ll right = id + 2 * (tm - tl + 1);
             build(a, left, tl, tm);
             build(a, right, tm + 1, tr);
-            t[id] = combine(t[left], t[right]);
+            t[id] = operador(t[left], t[right]);
         }
         for (ll i = tl; i <= tr; i++) {
             segs[id].pb(a[i - 1]);
@@ -61,7 +61,7 @@ struct SegmentTree {
     ll query(ll l, ll r, ll id, ll tl, ll tr, ll valor) { // O(logn)
         if (l <= tl && tr <= r) {
             ll cantidad =
-                segs[id].end() - lower_bound(segs[id].begin(), segs[id].end(), valor);
+                segs[id].end() - upper_bound(segs[id].begin(), segs[id].end(), valor);
             // cout << "VALOR " << *lower_bound(segs[id].begin(), segs[id].end(), valor) <<
             // endl; cout << "cantidad parcial: " << cantidad << " izq " << tl << " der " << tr
             // << endl;
@@ -73,8 +73,8 @@ struct SegmentTree {
         if (r < tm + 1) return query(l, r, left, tl, tm, valor);
         else if (tm < l) return query(l, r, right, tm + 1, tr, valor);
         else
-            return combine(query(l, r, left, tl, tm, valor),
-                           query(l, r, right, tm + 1, tr, valor));
+            return operador(query(l, r, left, tl, tm, valor),
+                            query(l, r, right, tm + 1, tr, valor));
     }
 
     ll query(ll l, ll r, ll valor) {
@@ -91,7 +91,7 @@ struct SegmentTree {
             ll right = id + 2 * (tm - tl + 1);
             if (pos <= tm) update(pos, val, left, tl, tm);
             else update(pos, val, right, tm + 1, tr);
-            t[id] = combine(t[left], t[right]);
+            t[id] = operador(t[left], t[right]);
         }
     }
 

@@ -231,11 +231,28 @@ struct Graph {
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-
+    ll nodos, aristas;
+    cin >> nodos >> aristas;
+    while (aristas--) {
+        ll a, b;
+        cin >> a >> b;
+        G.addEdge(a, b);
+    }
+    vector<ll> vec, vec2;
+    for (ll i = 1; i <= nodos; i++) {
+        vec.pb(i * 10);
+        vec2.pb(0);
+    }
+    st.build(vec2);
+    G.build(vec);
+    for (ll i = 1; i <= nodos; i++) {
+        cout << "Posicion de nodo en segment tree: " << i << " : " << G.inDegree[i] << " asd "
+             << G.pos[i] << endl;
+    }
     return 0;
 }
 
-// 26
+// 26 25
 // 1 2
 // 1 3
 // 2 4
