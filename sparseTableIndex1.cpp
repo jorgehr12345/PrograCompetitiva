@@ -18,7 +18,7 @@ const double PI = acos(-1.0);
 const ll logarit = 32 - __builtin_clz(MX);
 ll valores[MX][logarit + 1];
 ll operacion(ll a, ll b) {
-    return max(a, b);
+    return __gcd(a, b);
 }
 void sparseTableIndex1(vector<ll> &sparse) {
     ll n = sparse.size();
@@ -27,7 +27,7 @@ void sparseTableIndex1(vector<ll> &sparse) {
     }
     for (ll i = 1; i <= logarit; i++) {
         for (ll j = 1; j <= n; j++) {
-            if (j + (1 << i - 1) <= 1e6) { // VALOR MAXIMO DE LA CANTIDAD DE ELEMENTOS
+            if (j + (1 << i - 1) <= MX) { // VALOR MAXIMO DE LA CANTIDAD DE ELEMENTOS
                 valores[j][i] = operacion(valores[j][i - 1], valores[j + (1 << i - 1)][i - 1]);
             } else {
                 valores[j][i] = valores[j][i - 1];

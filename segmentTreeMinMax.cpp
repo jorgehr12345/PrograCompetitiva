@@ -4,20 +4,23 @@
 #define inic2 cin.tie(NULL);
 #define inic3 cout.tie(NULL);
 #define all(s) s.begin(), s.end()
+#define fore(i, a, b) for (ll i = a, to = b; i < to; i++)
 using namespace std;
 typedef long long ll;
-typedef long double ld;
 #define Rep0(i, n) for (ll i = 0; i < (ll)n; i++)
 #define Rep1(i, n) for (ll i = 1; i <= (ll)n; i++)
 #define Repi0(i, n) for (ll i = n - 1; i >= 0; i--)
 #define Repi1(i, n) for (ll i = n; i >= 1; i--)
-#define POT(x) ((x) * (x))
+#define POll(x) ((x) * (x))
+#define SZ(v) (ll) v.size()
 const ll MX = 1e5 + 5;
 const ll MOD = 998244353;
 const ll INF = 1e18;
 const long double INF_DOUBLE = 1e18 / 1.0;
 const long double EPS = 1e-8;
 const long double PI = acos(-1.0);
+typedef long double ld;
+typedef unsigned long long ull;
 
 ll combineMin(ll a, ll b) {
     // return a + b;
