@@ -20,7 +20,7 @@ void join(ll nodo_a, ll nodo_b) {
     nodo_a = find_lider(nodo_a);
     nodo_b = find_lider(nodo_b);
     if (nodo_a != nodo_b) {
-        if (tamanio[nodo_a] > tamanio[nodo_b]) {
+        if (tamanio[nodo_a] >= tamanio[nodo_b]) {
             tamanio[nodo_a] += tamanio[nodo_b];
             lider[nodo_b] = nodo_a;
         } else {
