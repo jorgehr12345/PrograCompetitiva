@@ -11,10 +11,10 @@ const ll INF = 1e9 + 2;
 vector<pair<ll, ll>> adj[MX];
 // map<pair<ll, ll>, ll> mapa;
 set<pair<ll, ll>> sepa;
-ll valores[MX];
-void dijkstra(ll root) {
+ll distancia_minima[MX];
+void dijkstra(ll root) { // n + m * (log2 n)
     sepa.insert(make_pair(0, root));
-    valores[root] = 0;
+    distancia_minima[root] = 0;
     set<pair<ll, ll>>::iterator it;
 
     while (!sepa.empty()) {
@@ -22,14 +22,14 @@ void dijkstra(ll root) {
         ll valorActual = (*it).second;
         sepa.erase(it);
         for (ll i = 0; i < adj[valorActual].size(); i++) {
-            if (valores[adj[valorActual][i].first] >
-                valores[valorActual] + adj[valorActual][i].second) {
-                sepa.erase(
-                    make_pair(valores[adj[valorActual][i].first], adj[valorActual][i].first));
-                valores[adj[valorActual][i].first] =
-                    valores[valorActual] + adj[valorActual][i].second;
-                sepa.insert(
-                    make_pair(valores[adj[valorActual][i].first], adj[valorActual][i].first));
+            if (distancia_minima[adj[valorActual][i].first] >
+                distancia_minima[valorActual] + adj[valorActual][i].second) {
+                sepa.erase(make_pair(distancia_minima[adj[valorActual][i].first],
+                                     adj[valorActual][i].first));
+                distancia_minima[adj[valorActual][i].first] =
+                    distancia_minima[valorActual] + adj[valorActual][i].second;
+                sepa.insert(make_pair(distancia_minima[adj[valorActual][i].first],
+                                      adj[valorActual][i].first));
             }
         }
     }
@@ -42,7 +42,7 @@ int main() {
 
     ll n, m;
     cin >> n >> m;
-    fill(valores, valores + n + 1, INF);
+    fill(distancia_minima, distancia_minima + n + 1, INF);
     while (m--) {
         ll a, b, w;
         cin >> a >> b >> w;
@@ -53,7 +53,7 @@ int main() {
     }
     dijkstra(1);
     for (ll i = 1; i <= n; i++) {
-        cout << valores[i] << endl;
+        cout << distancia_minima[i] << endl;
     }
 
     return 0;

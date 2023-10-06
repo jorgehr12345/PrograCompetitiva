@@ -246,8 +246,7 @@ int main() {
     st.build(vec2);
     G.build(vec);
     for (ll i = 1; i <= nodos; i++) {
-        cout << "Posicion de nodo en segment tree: " << i << " : " << G.inDegree[i] << " asd "
-             << G.pos[i] << endl;
+        cout << "Posicion de nodo en segment tree: " << i << " : " << G.pos[i] << endl;
     }
     return 0;
 }

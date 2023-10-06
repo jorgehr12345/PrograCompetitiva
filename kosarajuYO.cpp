@@ -20,6 +20,7 @@ void dfs1(ll ini) {
             dfs1(adj[ini][i]);
         }
     }
+    cout << "METO: " << ini << endl;
     st.push(ini);
 }
 void dfs2(ll ini, ll ordenSCC) {
@@ -40,10 +41,12 @@ void kosaraju(ll nodos) {
     }
     while (!st.empty()) {
         ll valor = st.top();
+        cout << "Estoy en el valor: " << valor << endl;
         if (val2[valor] == true) {
             st.pop();
         } else {
             contComp++;
+            cout << "Entro a dfs: " << valor << " asd " << contComp << endl;
             dfs2(valor, contComp);
             st.pop();
         }
