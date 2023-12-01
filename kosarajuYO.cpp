@@ -20,7 +20,7 @@ void dfs1(ll ini) {
             dfs1(adj[ini][i]);
         }
     }
-    cout << "METO: " << ini << endl;
+    // cout << "METO: " << ini << endl;
     st.push(ini);
 }
 void dfs2(ll ini, ll ordenSCC) {
@@ -41,12 +41,12 @@ void kosaraju(ll nodos) {
     }
     while (!st.empty()) {
         ll valor = st.top();
-        cout << "Estoy en el valor: " << valor << endl;
+        // cout << "Estoy en el valor: " << valor << endl;
         if (val2[valor] == true) {
             st.pop();
         } else {
             contComp++;
-            cout << "Entro a dfs: " << valor << " asd " << contComp << endl;
+            // cout << "Entro a dfs: " << valor << " asd " << contComp << endl;
             dfs2(valor, contComp);
             st.pop();
         }
@@ -88,17 +88,17 @@ ll ordenTopo[MX];
 ll ordenActual;
 void dfsTopo(ll ini) {
     valTopo[ini] = true;
-    for (ll i = 0; i < adj[ini].size(); i++) {
-        if (valTopo[adj[ini][i]] == false) {
-            dfsTopo(adj[ini][i]);
+    for (ll i = 0; i < adjCond[ini].size(); i++) {
+        if (valTopo[adjCond[ini][i]] == false) {
+            dfsTopo(adjCond[ini][i]);
         }
     }
     ordenTopo[ini] = ordenActual;
     ordenActual--;
 }
-void topoSort(ll n) {
-    ordenActual = n;
-    for (ll i = 1; i <= n; i++) {
+void topoSort(ll cantComponentes) {
+    ordenActual = cantComponentes;
+    for (ll i = 1; i <= cantComponentes; i++) {
         if (valTopo[i] == false) {
             dfsTopo(i);
         }
@@ -107,13 +107,13 @@ void topoSort(ll n) {
 
 pair<bool, string> cumple(ll n) {
     bool resp = true;
-    topoSort(2 * n);
+    topoSort(contComp);
     string devolver = "";
     for (ll i = 1; i <= n; i++) {
         if (orden[i] == orden[neg(i, n)]) {
             resp = false;
         } else {
-            if (ordenTopo[i] < ordenTopo[neg(i, n)]) {
+            if (ordenTopo[orden[i]] < ordenTopo[orden[neg(i, n)]]) {
                 devolver += '0';
             } else {
                 devolver += '1';

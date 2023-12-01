@@ -57,7 +57,7 @@ struct CentroidD {
 
     void build(Long u) {
         dfs(u, -1);
-        for (long long i = 1; i <= n; i++) {
+        for (long long i = 1; i < n; i++) {
             cout << szt[i] << " asd " << i << endl;
         }
         val_vis++;
@@ -145,7 +145,7 @@ int main() {
     Long n, x, y;
     cin >> n;
     G = CentroidD(n + 1);
-    for (Long i = 1; i <= n; i++) cin >> val[i];
+    // for (Long i = 1; i <= n; i++) cin >> val[i];
     for (Long i = 1; i < n; i++) {
         cin >> x >> y;
         G.addEdge(x, y);

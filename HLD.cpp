@@ -179,15 +179,12 @@ struct Graph {
         outDegree[u] = conteo;
     }
 
-    void build(vector<ll> &v, ll root = 1) {
+    void build(ll root = 1) {
         curPos = 0;
         depth[root] = 0;
         parent[root] = -1;
         dfs(root);
         decompose(root, root);
-        for (ll i = 0; i < v.size(); i++) {
-            st.update(pos[i + 1], pos[i + 1], v[i]);
-        }
     }
     void update(ll u, ll val) {
         st.update(pos[u], pos[u], val);
@@ -238,16 +235,22 @@ int main() {
         cin >> a >> b;
         G.addEdge(a, b);
     }
-    vector<ll> vec, vec2;
+    vector<ll> vec2;
     for (ll i = 1; i <= nodos; i++) {
-        vec.pb(i * 10);
-        vec2.pb(0);
+        vec2.pb(i * 10);
     }
-    st.build(vec2);
-    G.build(vec);
+    st.build(vec2); // CONSTRUYO EL SEGMENT TREE EN BASE A QUE CADA NODO TENGA COMO VALOR i*10
+                    // (LINEA 240)
+    G.build();      // LLENO LOS ARREGLOS NECESARIO DE HEAVY LIGHT
     for (ll i = 1; i <= nodos; i++) {
         cout << "Posicion de nodo en segment tree: " << i << " : " << G.pos[i] << endl;
     }
+    for (ll i = 1; i <= nodos; i++) {
+        cout << "Posicion incial en el subarbol de i: " << i << " : " << G.inDegree[i]
+             << " . Posicion final en dicho subarbol: " << G.outDegree[i] << endl;
+    }
+    ll a = 2, b = 5;
+    cout << "La suma de valores a lo largo del camino de 2 a 5 es: " << G.query(a, b) << endl;
     return 0;
 }
 

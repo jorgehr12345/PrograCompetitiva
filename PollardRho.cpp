@@ -21,30 +21,6 @@ void linea() {
     cout << "---------------" << endl;
 }
 
-vector<ll> adj2;
-ll primerFactor[MX];
-bool primo[MX];
-void criba(ll n) {
-    primo[0] = primo[1] = true;
-    for (ll i = 1; i <= n; i++) {
-        primerFactor[i] = i;
-    }
-    for (long long i = 2; i * i <= n; i++) {
-        if (primo[i] == false) {
-            for (long long j = 2 * i; j <= n; j += i) {
-                primo[j] = true;
-                primerFactor[j] = i;
-            }
-        }
-    }
-    ll t = 0;
-    for (long long i = 2; i <= n; i++) {
-        if (primo[i] == false) {
-            adj2.pb(i);
-        }
-    }
-}
-
 // Works for numbers < 2^63 and a, b < M
 ull mult(ull a, ull b, ull M) {
     // a %= M

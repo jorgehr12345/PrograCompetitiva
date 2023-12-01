@@ -78,20 +78,6 @@ bool isPrime(ll n) { // DE MILLER-RABIN
     return true;
 }
 
-ll phi(ll n) { // O(sqrt(n))
-    ll ans = n;
-    ll i = 2;
-    while (i * i <= n) {
-        if (n % i == 0) {
-            while (n % i == 0) n /= i;
-            ans -= ans / i;
-        }
-        i++;
-    }
-    if (n > 1) ans -= ans / n;
-    return ans;
-}
-
 int main() {
     inic;
     inic2;
