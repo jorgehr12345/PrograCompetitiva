@@ -21,7 +21,8 @@ typedef long double ld;
 typedef unsigned long long ull;
 
 ll combine(ll a, ll b) {
-    return a + b;
+    // return a + b;
+    return max(a, b);
 }
 
 struct SegmentTree {
@@ -63,9 +64,10 @@ struct SegmentTree {
         ll szLeft = tm - tl + 1;
         ll szRight = tr - tm;
         // Apply the lazy value of the node to the children
-        t[left] += lazy[id] * szLeft;
-        t[right] += lazy[id] * szRight;
-
+        // t[left] += lazy[id] * szLeft;
+        t[left] += lazy[id];
+        // t[right] += lazy[id] * szRight;
+        t[right] += lazy[id];
         // Aggregate the lazy value
         lazy[left] += lazy[id];
         lazy[right] += lazy[id];
@@ -92,11 +94,13 @@ struct SegmentTree {
     }
 
     void update(ll l, ll r, ll val, ll id, ll tl, ll tr) { // O(logn)
+        if (l > r) return;
         if (tr < l || tl > r) return;
         if (l <= tl && tr <= r) {
             ll sz = tr - tl + 1;
             // Apply the lazy value
-            t[id] += val * sz;
+            // t[id] += val * sz;
+            t[id] += val;
             // Aggregate the lazy value
             lazy[id] += val;
         } else {
