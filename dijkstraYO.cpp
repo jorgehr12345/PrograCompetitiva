@@ -6,17 +6,17 @@ using namespace std;
 typedef long long ll;
 
 const ll MX = 1e5 + 2;
-const ll INF = 1e9 + 2;
+const ll INF = 1e18 + 2;
 
 vector<pair<ll, ll>> adj[MX];
 // map<pair<ll, ll>, ll> mapa;
 set<pair<ll, ll>> sepa;
-ll distancia_minima[MX];
+ll distancia_minima[MX], primer_ancestro[MX];
 void dijkstra(ll root) { // n + m * (log2 n)
     sepa.insert(make_pair(0, root));
     distancia_minima[root] = 0;
     set<pair<ll, ll>>::iterator it;
-
+    primer_ancestro[root] = root;
     while (!sepa.empty()) {
         it = sepa.begin();
         ll valorActual = (*it).second;
@@ -30,6 +30,7 @@ void dijkstra(ll root) { // n + m * (log2 n)
                     distancia_minima[valorActual] + adj[valorActual][i].second;
                 sepa.insert(make_pair(distancia_minima[adj[valorActual][i].first],
                                       adj[valorActual][i].first));
+                primer_ancestro[adj[valorActual][i].first] = valorActual;
             }
         }
     }

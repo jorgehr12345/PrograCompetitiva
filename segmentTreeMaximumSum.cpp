@@ -79,10 +79,10 @@ struct SegmentTree {
 
     valores query(ll l, ll r, ll id, ll tl, ll tr) { // O(logn)
         valores resp;
-        resp.sumapref = INT_MIN;
-        resp.sumasuf = INT_MIN;
-        resp.sumatot = INT_MIN;
-        resp.sumamax = INT_MIN;
+        resp.sumapref = -INF;
+        resp.sumasuf = -INF;
+        resp.sumatot = -INF;
+        resp.sumamax = -INF;
         if (l <= tl && tr <= r) {
             return ids[id];
         }

@@ -31,5 +31,15 @@ int main() {
     inic;
     inic2;
     ordered_set s;
+    s.insert(20);
+    s.insert(30);
+    s.insert(30);
+    s.insert(25);
+    // for (tree<ll, null_type, less<ll>, rb_tree_tag,
+    //           tree_order_statistics_node_update>::iterator it = s.begin();
+    //      it != s.end(); it++) {
+    //     cout << *it << " asd " << endl;
+    // }
+    cout << s.order_of_key(31) << " qweqwe" << endl;
     return 0;
 }

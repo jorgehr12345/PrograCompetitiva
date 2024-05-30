@@ -19,26 +19,29 @@ const ll MOD = 998244353;
 const long double EPS = 1e-8;
 const long double PI = acos(-1.0);
 
-vector<ll> adj2;
+vector<ll> primos;
 ll primerFactor[MX];
-void criba(ll n) {
-    bool primo[MX];
-    primo[0] = primo[1] = true;
+bool no_primo[MX];
+void criba(ll n) { // n*log(log(n)) n=10^7
+    no_primo[0] = no_primo[1] = true;
     for (ll i = 1; i <= n; i++) {
         primerFactor[i] = i;
     }
-    for (long long i = 2; i * i <= n; i++) {
-        if (primo[i] == false) {
+    for (long long i = 2; i <= n; i++) {
+        if (no_primo[i] == false) {
             for (long long j = 2 * i; j <= n; j += i) {
-                primo[j] = true;
-                primerFactor[j] = i;
+                no_primo[j] = true;
+                if (primerFactor[j] == j) {
+                    primerFactor[j] = i;
+                }
             }
         }
     }
+
     ll t = 0;
     for (long long i = 2; i <= n; i++) {
-        if (primo[i] == false) {
-            adj2.pb(i);
+        if (no_primo[i] == false) {
+            primos.pb(i);
         }
     }
 }

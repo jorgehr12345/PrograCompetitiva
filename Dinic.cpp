@@ -81,18 +81,6 @@ struct dinic {
         while (bfs(s, t, n)) {
             while (ll inc = dfs(s, t, INF, -1)) {
                 ans += inc;
-                // // VER AUGMENTING
-                // ll parcial = n;
-                // resp[ans].pb(parcial);
-                // // cout << "Rp: " << ans << " Parcial: " << parcial << endl;
-                // while (padre[parcial] != n - 1) {
-                //     parcial = padre[parcial];
-                //     resp[ans].pb(parcial);
-                //     // cout << "Rp: " << ans << " Parcial: " << parcial << endl;
-                // }
-                // resp[ans].pb(n - 1);
-                // // cout << "Rp: " << ans << " Parcial: " << 1 << endl;
-                // // FIN VER AUGMENTING
             }
         }
         return ans;

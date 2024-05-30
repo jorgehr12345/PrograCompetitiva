@@ -129,7 +129,7 @@ struct Graph {
     ll pos[MX];
     ll curPos = 0;
     ll conteo = 1;
-    ll inDegree[MX], outDegree[MX];
+    ll posEntrada[MX], posSalida[MX];
 
     void clear(ll n) { // O(n)
         conteo = 1;
@@ -167,7 +167,7 @@ struct Graph {
     }
 
     void decompose(ll u, ll h) { // O(V + E)
-        inDegree[u] = conteo;
+        posEntrada[u] = conteo;
         head[u] = h;
         pos[u] = ++curPos;
         if (heavy[u] != -1) {
@@ -180,7 +180,7 @@ struct Graph {
                 decompose(v, v);
             }
         }
-        outDegree[u] = conteo;
+        posSalida[u] = conteo;
     }
 
     void build(ll root = 1) {
@@ -250,8 +250,8 @@ int main() {
         cout << "Posicion de nodo en segment tree: " << i << " : " << G.pos[i] << endl;
     }
     for (ll i = 1; i <= nodos; i++) {
-        cout << "Posicion incial en el subarbol de i: " << i << " : " << G.inDegree[i]
-             << " . Posicion final en dicho subarbol: " << G.outDegree[i] << endl;
+        cout << "Posicion incial en el subarbol de i: " << i << " : " << G.posEntrada[i]
+             << " . Posicion final en dicho subarbol: " << G.posSalida[i] << endl;
     }
     ll a = 2, b = 5;
     cout << "La suma de valores a lo largo del camino de 2 a 5 es: " << G.query(a, b) << endl;

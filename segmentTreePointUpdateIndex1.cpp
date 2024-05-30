@@ -48,21 +48,33 @@ struct SegmentTree {
         build(a, 1, 1, n);
     }
 
-    ll query(ll l, ll r, ll id, ll tl, ll tr) { // O(logn)
+    ll query(ll k, ll id, ll tl, ll tr) { // O(logn)
         // if (tr < l || tl > r || l>R) return 0; //Dependiendo lo que te pidan
-        if (l <= tl && tr <= r) return t[id];
+        // if (l <= tl && tr <= r) return t[id];
+        if (tl == tr) {
+            if (t[id] == 1) {
+                return tr;
+            } else {
+                return -1;
+            }
+        }
         ll tm = (tl + tr) / 2;
         ll left = id + 1;
         ll right = id + 2 * (tm - tl + 1);
-        if (r < tm + 1) return query(l, r, left, tl, tm);
-        else if (tm < l) return query(l, r, right, tm + 1, tr);
-        else return operador(query(l, r, left, tl, tm), query(l, r, right, tm + 1, tr));
+        if (t[left] > k) {
+            return query(k, left, tl, tm);
+        } else {
+            query(k - t[left], right, tm + 1, tr);
+        }
+        // if (r < tm + 1) return query(l, r, left, tl, tm);
+        // else if (tm < l) return query(l, r, right, tm + 1, tr);
+        // else return operador(query(l, r, left, tl, tm), query(l, r, right, tm + 1, tr));
     }
 
-    ll query(ll l, ll r) {
-        assert(n > 0);
-        return query(l, r, 1, 1, n);
-    }
+    // ll query(ll l, ll r) {
+    //     assert(n > 0);
+    //     return query(l, r, 1, 1, n);
+    // }
 
     void update(ll pos, ll val, ll id, ll tl, ll tr) { // O(logn)
         if (tl == tr) {
@@ -83,23 +95,56 @@ struct SegmentTree {
     }
 } st;
 
+vector<ll> vec;
+ll arreglo[MX];
 int main() {
     ll t, k;
-    cin >> t;
+    cin >> t >> k;
     ll as = t;
-    while (as--) {
-        char c;
-        cin >> c;
-        if (c == 'C') {
-            ll p;
-            cin >> p;
-            ll as2 = p;
-            while (p--) {
-                ll l;
-                cin >> l;
+    Rep1(i, t) {
+        cin >> arreglo[i];
+        vec.pb(arreglo[i]);
+    }
+    st.build(vec);
+    while (k--) {
+        ll num;
+        cin >> num;
+        if (num == 1) {
+            ll k;
+            cin >> k;
+            ll rp = st.query(k, 1, 1, vec.size());
+            if (rp == -1) {
+                cout << "NO" << endl;
+            } else {
+                cout << rp << endl;
+            }
+        } else {
+            ll pos, valor;
+            cin >> pos >> valor;
+            if (arreglo[pos] == 0) {
+                if (valor != 0) {
+                    st.update(pos, 0);
+                }
+            } else {
+                if (valor == 0) {
+                    st.update(pos, 1);
+                }
             }
         }
     }
+    // while (as--) {
+    //     char c;
+    //     cin >> c;
+    //     if (c == 'C') {
+    //         ll p;
+    //         cin >> p;
+    //         ll as2 = p;
+    //         while (p--) {
+    //             ll l;
+    //             cin >> l;
+    //         }
+    //     }
+    // }
 
     return 0;
 }

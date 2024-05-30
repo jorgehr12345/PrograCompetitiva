@@ -45,6 +45,7 @@ void join(ll nodo_a, ll nodo_b) {
     }
 }
 
+ll rp[MX];
 void dfs(ll ini, ll pap) {
     ll tamMay = -1, nodoMay = ini;
     for (ll i = 0; i < adj[ini].size(); i++) {
@@ -88,9 +89,15 @@ int main() {
     fill(tamanio, tamanio + n + 1, 1);
     iota(lider, lider + n + 1, 0);
     dfs(1, 1);
-    Rep1(i, n) {
-        cout << resp[i] << " ";
+    ll q;
+    cin >> q;
+    while (q--) {
+        ll a;
+        cin >> a;
     }
-    cout << endl;
+    // Rep1(i, n) {
+    //     cout << resp[i] << " ";
+    // }
+    // cout << endl;
     return 0;
 }

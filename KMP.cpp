@@ -22,7 +22,7 @@ typedef unsigned long long ull;
 
 string s, p;
 ll cont = 0;
-vector<ll> prefix_function(string a) {
+vector<ll> prefix_function(string a) { // O(n)
     ll n = a.size();
     vector<ll> pi(n);
     for (ll i = 1; i < n; i++) {
@@ -38,7 +38,7 @@ vector<ll> prefix_function(string a) {
     return pi;
 }
 
-vector<ll> kmp() {
+vector<ll> kmp() { // O(|p| + |s|)
     string w = p + '#' + s;
     vector<ll> border_func = prefix_function(w);
     vector<ll> ans;
@@ -48,21 +48,6 @@ vector<ll> kmp() {
         }
     }
     return ans;
-}
-
-bool esta(string p, string s) { // Esta p dentro de s
-    string w = p + '#' + s;
-    vector<ll> border_func = prefix_function(w);
-    vector<ll> ans;
-    for (ll i = 0; i < border_func.size(); i++) {
-        if (border_func[i] == p.size()) {
-            ans.pb(i - 2 * p.size() + 1);
-        }
-    }
-    if (ans.size() > 0) {
-        return true;
-    }
-    return false;
 }
 
 int main() {
@@ -75,6 +60,32 @@ int main() {
         cout << "SI" << endl;
     } else {
         cout << "NO" << endl;
+    }
+
+    string pp;
+    cin >> pp;
+    pp = pp + '#';
+    vector<ll> vec = prefix_function(pp);
+    ll q;
+    cin >> q;
+    while (q--) {
+        string s;
+        cin >> s;
+        ll ans = 0;
+        ll j = 0;
+        for (ll i = 0; i < s.size(); i++) {
+            while (j >= 0 && s[i] != pp[j]) {
+                if (j > 0) {
+                    j = vec[j - 1];
+                } else {
+                    j = -1;
+                }
+            }
+            if (++j == pp.size() - 1) {
+                ans++;
+            }
+        }
+        cout << ans << endl;
     }
 
     return 0;
